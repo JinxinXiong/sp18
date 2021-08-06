@@ -1,7 +1,3 @@
-//package deque;
-
-
-
 public class LinkedListDeque<T> {
     public class ListNode<T>{
         public T item;
@@ -106,25 +102,4 @@ public class LinkedListDeque<T> {
         }
         return p.item;
     }
-
-
-
-
-
-//    public static void main(String[] args) {
-//        LinkedListDeque<Integer> lld = new LinkedListDeque<>();
-//        lld.addLast(10);
-//        lld.addFirst(15);
-//        lld.addLast(20);
-//        lld.printDeque();
-//
-////        lld.removeFirst();
-////        lld.printDeque();
-////
-////        lld.removeLast();
-////        lld.printDeque();
-//        System.out.println(lld.get(1));
-//    }
-
-
 }
