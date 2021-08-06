@@ -1,5 +1,5 @@
 public class LinkedListDeque<T> {
-    public class ListNode<T>{
+    private class ListNode{
         public T item;
         public ListNode prev;
         public ListNode next;
@@ -12,20 +12,20 @@ public class LinkedListDeque<T> {
     }
 
     private int size = 0;
-    private ListNode<T> sentFront;
-    private ListNode<T> sentBack;
+    private ListNode sentFront;
+    private ListNode sentBack;
 
     public LinkedListDeque() {
-        sentFront = new ListNode<>(null);
-        sentBack = new ListNode<>(null);
+        sentFront = new ListNode(null);
+        sentBack = new ListNode(null);
         sentFront.next = sentBack;
         sentBack.prev = sentFront;
     }
 
     /** Add a node with value x to the end of the list**/
     public void addFirst(T item) {
-        ListNode<T> newNode = new ListNode<>(item);
-        ListNode<T> first = sentFront.next;
+        ListNode newNode = new ListNode(item);
+        ListNode first = sentFront.next;
         newNode.next = first;
         newNode.prev = sentFront;
         first.prev = newNode;
@@ -34,8 +34,8 @@ public class LinkedListDeque<T> {
 
     }
     public void addLast(T item) {
-        ListNode<T> newNode = new ListNode<>(item);
-        ListNode<T> secondLast = sentBack.prev;
+        ListNode newNode = new ListNode(item);
+        ListNode secondLast = sentBack.prev;
         newNode.prev = secondLast;
         newNode.next = sentBack;
         secondLast.next = newNode;
@@ -51,7 +51,7 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque() {
-        ListNode<T> p = sentFront.next;
+        ListNode p = sentFront.next;
 
         while (p != sentBack) {
             System.out.print(p.item);
@@ -66,7 +66,7 @@ public class LinkedListDeque<T> {
             return null;
         }
 
-        ListNode<T> first = sentFront.next;
+        ListNode first = sentFront.next;
 
         sentFront.next = first.next;
         first.next.prev = sentFront;
@@ -80,7 +80,7 @@ public class LinkedListDeque<T> {
             return null;
         }
 
-        ListNode<T> last = sentBack.prev;
+        ListNode last = sentBack.prev;
 
         sentBack.prev = last.prev;
         last.prev.next = sentBack;
@@ -94,7 +94,7 @@ public class LinkedListDeque<T> {
             System.out.println("index out of bound");
             return null;
         }
-        ListNode<T> p = sentFront.next;
+        ListNode p = sentFront.next;
         int i = 0;
         while (p != sentBack && i < index) {
             p = p.next;
