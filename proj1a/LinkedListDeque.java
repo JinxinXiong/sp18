@@ -1,10 +1,10 @@
 public class LinkedListDeque<T> {
-    private class ListNode{
-        public T item;
-        public ListNode prev;
-        public ListNode next;
+    private class ListNode {
+        private T item;
+        private ListNode prev;
+        private ListNode next;
 
-        public ListNode (T i) {
+        public ListNode(T i) {
             item = i;
             prev = null;
             next = null;
@@ -31,8 +31,8 @@ public class LinkedListDeque<T> {
         first.prev = newNode;
         sentFront.next = newNode;
         size += 1;
-
     }
+
     public void addLast(T item) {
         ListNode newNode = new ListNode(item);
         ListNode secondLast = sentBack.prev;
@@ -62,7 +62,7 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
 
@@ -76,7 +76,7 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
 
