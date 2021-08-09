@@ -13,7 +13,7 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    public void resize(int nsize) {
+    private void resize(int nsize) {
         T[] a = (T[]) new Object[nsize];
 
         int i = (nextFirst + 1) % size;
@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
             i  = (i + 1) % size;
         }
 
-        System.out.println("current capacity" + size + " to " + nsize);
+//        System.out.println("current capacity" + size + " to " + nsize);
         size = nsize;
         items = a;
         nextFirst = nsize - 1;
@@ -67,6 +67,10 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (n == 0) {
+            return null;
+        }
+        
         if (size > 16 && n < size * 0.25) {
             resize(size / FACTOR);
         }
@@ -78,10 +82,14 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (n == 0) {
+            return null;
+        }
+
         if (size > 16 && n < 0.25 * size) {
-//        if (size > 16 && n / size < 0.25) {
             resize(size / FACTOR);
         }
+
         nextLast = (nextLast - 1 + size) % size;
         T x = items[nextLast];
         items[nextLast] = null;
@@ -93,19 +101,19 @@ public class ArrayDeque<T> {
     public T get(int index) {
         return items[(nextFirst + 1 + index) % size];
     }
-    public static void main(String[] args) {
-        ArrayDeque<String> AD = new ArrayDeque<>();
-        System.out.println(AD.isEmpty());
-
-        AD.addLast("a");
-        AD.addLast("b");
-        AD.addFirst("c");
-        AD.addLast("d");
-        AD.addLast("e");
-        AD.addFirst("f");
-        System.out.println(AD.isEmpty());
-        System.out.println(AD.size());
-        System.out.println(AD.get(1));
-        AD.printDeque();
-    }
+//    public static void main(String[] args) {
+//        ArrayDeque<String> AD = new ArrayDeque<>();
+//        System.out.println(AD.isEmpty());
+//
+//        AD.addLast("a");
+//        AD.addLast("b");
+//        AD.addFirst("c");
+//        AD.addLast("d");
+//        AD.addLast("e");
+//        AD.addFirst("f");
+//        System.out.println(AD.isEmpty());
+//        System.out.println(AD.size());
+//        System.out.println(AD.get(1));
+//        AD.printDeque();
+//    }
 }
