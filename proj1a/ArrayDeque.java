@@ -1,154 +1,110 @@
 public class ArrayDeque<T> {
-    private T[] items;
     private int size;
+    private T[] items;
     private int nextFirst;
     private int nextLast;
-    private final int INITIAL_CAPACITY = 8;
+    private int FACTOR = 2;
+    private int n = 0;
 
     public ArrayDeque() {
-        items = (T[]) new Object[INITIAL_CAPACITY];
-        size = 0;
-        nextFirst = 0;
-        nextLast = 1;
+        items = (T[]) new Object[8];
+        size = 8;
+        nextFirst = 7;
+        nextLast = 0;
     }
 
-    public int size() {
-        return size;
-    }
+    public void resize(int nsize) {
+        T[] a = (T[]) new Object[nsize];
 
-    public boolean isEmpty() {
-        return (size == 0 ? true : false);
-    }
-
-    public int minusOne(int index) {
-        return Math.floorMod(index-1, items.length);
-    }
-
-
-    public int plusOne(int index) {
-        return Math.floorMod(index+1, items.length);
-    }
-
-    public int plusOne(int index, int length) {
-        return Math.floorMod(index+1, length);
-    }
-
-    /**
-     *  invariants:
-     *      设计resize()方法，将在增加ArrayDeaue实例内存的方法中调用
-     *      内部判断内存满则调用expand()增加内存
-     *        如果内存过小则调用reduce()减小内存
-     **/
-
-    private void resize() {
-        if (size == items.length) {
-            expand();
+        int i = (nextFirst + 1) % size;
+        int j = 0;
+        while (j < size) {
+            a[j] = items[i];
+            j += 1;
+            i  = (i + 1) % size;
         }
-        if (size < items.length / 4 && items.length > 8) {
-            reduce();
-        }
+
+//        System.out.println("current capacity" + size + " to " + nsize);
+        size = nsize;
+        items = a;
+        nextFirst = nsize - 1;
+        nextLast = j;
     }
 
-    private void expand() {
-        resizeHelper(items.length * 2);
-    }
-
-    private void reduce() {
-        resizeHelper(items.length / 2);
-    }
-
-    private void resizeHelper(int capacity) {
-        T[] temp = items;
-        int begin = plusOne(nextFirst);
-        int end = minusOne(nextLast);
-        items = (T[]) new Object[capacity];
-        nextFirst = 0;
-        nextLast = 1;
-        for (int i=begin; i != end; i = plusOne(i, temp.length)) {
-            items[nextLast] = temp[i];
-            nextLast = plusOne(nextLast);
-        }
-        items[nextLast] = temp[end];
-        nextLast = plusOne(nextLast);
-    }
-
-    /**
-     *  invariants:
-     *      通过minusOne()方法确定nextFirst，(nextFirst-1)%items.length
-     *      即nextFirst的下一个位置
-     *      eg. (0 - 1) % 8 = 7
-     *
-     * */
     public void addFirst(T item) {
-        // resize();
+        if (items[nextFirst] != null) {
+            resize(size * FACTOR);
+        }
         items[nextFirst] = item;
-        nextFirst = minusOne(nextFirst);
-        size++;
-    }
-
-    public T getFirst() {
-        return items[plusOne(nextFirst)];
-    }
-
-    public T removeFirst() {
-        resize();
-        T res = getFirst();
-        nextFirst = plusOne(nextFirst);
-        items[nextFirst] = null;
-        size--;
-        return res;
+        nextFirst  = (nextFirst - 1 + size) % size;
+        n += 1;
     }
 
     public void addLast(T item) {
-        resize();
+        if (items[nextLast] != null) {
+            resize(size * FACTOR);
+        }
         items[nextLast] = item;
-        nextLast = plusOne(nextLast);
-        size++;
+        nextLast = (nextLast + 1) % size;
+        n += 1;
     }
 
-    public T getLast() {
-        return items[minusOne(nextLast)];
+    public boolean isEmpty() {
+        return (items[(nextFirst + 1 + size) % size] == null) && (items[(nextLast - 1 + size) % size] == null);
     }
 
-    public T removeLast() {
-        resize();
-        T res = getLast();
-        nextLast = minusOne(nextLast);
-        items[nextLast] = null;
-        size--;
-        return res;
+    public int size() {
+        return n;
     }
 
     public void printDeque() {
-        for (int index = plusOne(nextFirst); index != nextLast; index = plusOne(index)) {
-            System.out.print(items[index]);
-            System.out.print(" ");
+        int i = (nextFirst + 1) % size;
+        while (i != nextLast) {
+            System.out.print(items[i] + " ");
+            i  = (i + 1) % size;
         }
         System.out.println();
     }
 
+    public T removeFirst() {
+        if (size > 16 && n / size < 0.25) {
+            resize(size / FACTOR);
+        }
+        nextFirst = (nextFirst + 1) % size;
+        T x = items[nextFirst];
+        items[nextFirst] = null;
+        n -= 1;
+        return x;
+    }
+
+    public T removeLast() {
+        if (size > 16 && n / size < 0.25) {
+            resize(size / FACTOR);
+        }
+        nextLast = (nextLast - 1 + size) % size;
+        T x = items[nextLast];
+        items[nextLast] = null;
+        n -= 1;
+
+        return x;
+    }
+
     public T get(int index) {
-        if (index < 0 || index >= size) {
-            return null;
-        }
-        index = Math.floorMod(plusOne(nextFirst) + index, items.length);
-        return items[index];
+        return items[(nextFirst + 1 + index) % size];
     }
-
-
-
-    /*
     public static void main(String[] args) {
-        ArrayDeque<Integer> aq = new ArrayDeque<Integer>();
-        for (int i = 0; i < 100; i++) {
-            aq.addLast(i);
-        }
-        aq.printDeque();
-        for (int i = 0; i < 98; i++) {
-            aq.removeFirst();
-        }
-        aq.printDeque();
-        System.out.println(aq.get(0));
+        ArrayDeque<String> AD = new ArrayDeque<>();
+        System.out.println(AD.isEmpty());
+
+        AD.addLast("a");
+        AD.addLast("b");
+        AD.addFirst("c");
+        AD.addLast("d");
+        AD.addLast("e");
+        AD.addFirst("f");
+        System.out.println(AD.isEmpty());
+        System.out.println(AD.size());
+        System.out.println(AD.get(1));
+        AD.printDeque();
     }
-    */
 }
