@@ -34,8 +34,8 @@ public class LinkedListDequeTest {
 	  *
 	  * && is the "and" operation. */
 	public static void addIsEmptySizeTest() {
-		System.out.println("Running add/isEmpty/Size test.");
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
+//		System.out.println("Running add/isEmpty/Size test.");
+//		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 //		/*
 		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
@@ -53,6 +53,8 @@ public class LinkedListDequeTest {
 
 		lld1.addLast("back");
 		passed = checkSize(3, lld1.size()) && passed;
+
+		System.out.println(lld1.getRecursive(2));
 
 		System.out.println("Printing out deque: ");
 		lld1.printDeque();
@@ -87,6 +89,6 @@ public class LinkedListDequeTest {
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
-		addRemoveTest();
+//		addRemoveTest();
 	}
 }

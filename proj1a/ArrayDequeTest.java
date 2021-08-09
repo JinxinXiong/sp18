@@ -1,4 +1,4 @@
-public class ArratDequeTest {
+public class ArrayDequeTest {
     /* Utility method for printing out empty checks. */
     public static boolean checkEmpty(boolean expected, boolean actual) {
         if (expected != actual) {

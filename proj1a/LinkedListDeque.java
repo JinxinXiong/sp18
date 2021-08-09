@@ -104,6 +104,16 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        return null;
+        if (index > this.size) {
+            return null;
+        }
+        if (index == 0) {
+            return this.sentFront.next.item;
+        }
+        LinkedListDeque<T> lld = new LinkedListDeque<>();
+        lld.size = this.size - 1;
+        lld.sentFront = this.sentFront.next;
+        lld.sentBack = this.sentBack;
+        return lld.getRecursive(index - 1);
     }
 }

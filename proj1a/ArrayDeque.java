@@ -18,7 +18,7 @@ public class ArrayDeque<T> {
 
         int i = (nextFirst + 1) % size;
         int j = 0;
-        while (j < size) {
+        while (j < n) {
             a[j] = items[i];
             j += 1;
             i  = (i + 1) % size;
@@ -67,7 +67,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if (size > 16 && n / size < 0.25) {
+        if (size > 16 && n < size * 0.25) {
             resize(size / FACTOR);
         }
         nextFirst = (nextFirst + 1) % size;
