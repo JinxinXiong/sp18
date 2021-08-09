@@ -87,8 +87,8 @@ public class ArrayDequeTest {
         // should be empty
         boolean passed = checkEmpty(true, lld1.isEmpty());
 
-        for (int i = 0; i < 9; i += 1){
-            lld1.addFirst(10);
+        for (int i = 0; i < 17; i += 1){
+            lld1.addFirst(i + 1);
 //            lld1.printDeque();
 
         }
@@ -97,8 +97,8 @@ public class ArrayDequeTest {
 
         passed = checkEmpty(false, lld1.isEmpty()) && passed;
 
-        for (int j = 0; j < 9; j += 1){
-            lld1.removeFirst();
+        for (int j = 0; j < 15; j += 1){
+            lld1.removeLast();
         }
         lld1.printDeque();
 //        // should be empty

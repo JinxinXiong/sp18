@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
             i  = (i + 1) % size;
         }
 
-//        System.out.println("current capacity" + size + " to " + nsize);
+        System.out.println("current capacity" + size + " to " + nsize);
         size = nsize;
         items = a;
         nextFirst = nsize - 1;
@@ -78,7 +78,8 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if (size > 16 && n / size < 0.25) {
+        if (size > 16 && n < 0.25 * size) {
+//        if (size > 16 && n / size < 0.25) {
             resize(size / FACTOR);
         }
         nextLast = (nextLast - 1 + size) % size;
