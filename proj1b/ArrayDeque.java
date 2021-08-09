@@ -1,4 +1,4 @@
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     private int size;
     private T[] items;
     private int nextFirst;
@@ -30,7 +30,7 @@ public class ArrayDeque<T> {
         nextFirst = nsize - 1;
         nextLast = j;
     }
-
+    @Override
     public void addFirst(T item) {
         if (items[nextFirst] != null) {
             resize(size * FACTOR);
@@ -39,7 +39,7 @@ public class ArrayDeque<T> {
         nextFirst  = (nextFirst - 1 + size) % size;
         n += 1;
     }
-
+    @Override
     public void addLast(T item) {
         if (items[nextLast] != null) {
             resize(size * FACTOR);
@@ -49,14 +49,15 @@ public class ArrayDeque<T> {
         n += 1;
     }
 
-    public boolean isEmpty() {
-        return (items[(nextFirst + 1 + size) % size] == null) && (items[(nextLast - 1 + size) % size] == null);
-    }
-
+//    public boolean isEmpty() {
+//        return (items[(nextFirst + 1 + size) % size] == null) && (items[(nextLast - 1 + size) % size] == null);
+//    }
+    @Override
     public int size() {
         return n;
     }
 
+    @Override
     public void printDeque() {
         int i = (nextFirst + 1) % size;
         while (i != nextLast) {
@@ -66,6 +67,7 @@ public class ArrayDeque<T> {
         System.out.println();
     }
 
+    @Override
     public T removeFirst() {
         if (n == 0) {
             return null;
@@ -81,6 +83,7 @@ public class ArrayDeque<T> {
         return x;
     }
 
+    @Override
     public T removeLast() {
         if (n == 0) {
             return null;
@@ -98,9 +101,11 @@ public class ArrayDeque<T> {
         return x;
     }
 
+    @Override
     public T get(int index) {
         return items[(nextFirst + 1 + index) % size];
     }
+
 //    public static void main(String[] args) {
 //        ArrayDeque<String> AD = new ArrayDeque<>();
 //        System.out.println(AD.isEmpty());
