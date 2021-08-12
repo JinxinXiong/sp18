@@ -62,7 +62,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public V get(K key) {
 //        throw new UnsupportedOperationException();
-        return getHelper(key, this.root);
+        Node p = this.root;
+        return getHelper(key, p);
     }
 
 
@@ -128,11 +129,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     }
     @Override
     public Set<K> keySet() {
-//        throw new UnsupportedOperationException();
-//        Set<K> set = new HashSet<>();
-//        set.clear();
-//        traverse(this.root);
-//        return set;
+
         return set;
     }
 
@@ -242,6 +239,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             new_root.right = right_child;
         }
         set.remove(p.key);
+        size -= 1;
         return ret;
     }
 
@@ -287,13 +285,13 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         bstmap.put("ab", 1);
         bstmap.put("fash", 2);
 
-//        bstmap.remove("hello");
-        System.out.println(bstmap.keySet());
-
-        for (String s : bstmap) {
-            System.out.println(s);
-        }
-
+        bstmap.remove("hello");
+//        System.out.println(bstmap.keySet());
+//
+//        for (String s : bstmap) {
+//            System.out.println(s);
+//        }
+        System.out.println(bstmap.get("hello"));
         bstmap.printInOrder(bstmap.root);
     }
 }
