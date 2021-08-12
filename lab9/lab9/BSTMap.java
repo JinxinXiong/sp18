@@ -62,6 +62,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     @Override
     public V get(K key) {
 //        throw new UnsupportedOperationException();
+        if (! set.contains(key))  {
+            return null;
+        }
         Node p = this.root;
         return getHelper(key, p);
     }
@@ -225,6 +228,8 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             Node new_root = most_right(p.left);
 
             remove(new_root.key);
+            left_child = p.left;
+            right_child = p.right;
 
             if (parent != null) { // p is the root
                 if (parent.left == p) {
@@ -237,6 +242,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
             }
             new_root.left = left_child;
             new_root.right = right_child;
+            set.add(new_root.key);
         }
         set.remove(p.key);
         size -= 1;
