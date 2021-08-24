@@ -14,6 +14,11 @@ public class Game {
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
+
+    public Game() {
+        ter.initialize(WIDTH, HEIGHT);
+    }
+
     public void playWithKeyboard() {
     }
 
@@ -29,7 +34,7 @@ public class Game {
      * @param input the input string to feed to your program
      * @return the 2D TETile[][] representing the state of the world
      */
-    public static TETile[][] playWithInputString(String input) {
+    public TETile[][] playWithInputString(String input) {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
@@ -65,6 +70,7 @@ public class Game {
                 System.out.println(c);
             }
         }
+        ter.renderFrame(finalWorldFrame);
         return finalWorldFrame;
     }
 
@@ -84,14 +90,14 @@ public class Game {
         return seed;
     }
 
-    public static void main(String[] args) {
-        TETile[][] world = playWithInputString("l");
-        int width = world.length;
-        int height = world[0].length;
-
-        TERenderer ter = new TERenderer();
-        ter.initialize(width, height);
-
-        ter.renderFrame(world);
-    }
+//    public static void main(String[] args) {
+//        TETile[][] world = playWithInputString("l");
+//        int width = world.length;
+//        int height = world[0].length;
+//
+//        TERenderer ter = new TERenderer();
+//        ter.initialize(width, height);
+//
+//        ter.renderFrame(world);
+//    }
 }
